@@ -18,7 +18,7 @@ The file `combilog_read_data.py` includes basic examples how to use the classes.
 
 The class object `other_call`from the class `combilog` offers you the option to create any call as described in the logger manual using this class and the initialized logger. The commonly used calls have their own class object in the class `combilog`.
 
-The manual can be found [here](http://www.th-friedrichs.de/assets/ProductPage/ProductDownload/E1022Datasheet.pdf). The `ASCII` protocol is described starting at page 118.
+The manual can be found [here](http://www.th-friedrichs.de/assets/ProductPage/ProductDownload/ManualE1022V109.pdf). The `ASCII` protocol is described starting at page 118.
 
 ### My Usage
 I personally use this for my private weatherstation. The logger is connected via USB to a Raspberry Pi running a basic rasbian. Every 5 minutes - when a log was written - I fetch the data from the logger and save it directly into a PostgreSQL database.
