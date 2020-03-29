@@ -1,21 +1,19 @@
 # Script for reading the data from Theodor Friedrich's Combilog 1022 via ascii
-# to a computer connected via USB e.g. a raspberry pi or other mini computer that is able
+# to a computer connected via USB e.g. a raspberry pi
+# or other mini computer that is able
 # to run python3
 # Github: theendlessriver13/combilog1022
-# (C) Jonas Kittner 2020
+# Jonas Kittner 2020
+from serial import EIGHTBITS
+from serial import PARITY_NONE
+from serial import Serial
 
-# Imports
-import pandas       as pd
-from   serial       import Serial
-from   serial       import EIGHTBITS
-from   serial       import PARITY_NONE
-from   combilog_FUN import combilog
-from   datetime     import datetime
+from combilog_FUN import combilog
 
 # set up port and connection
 ser          = Serial()
 ser.baudrate = 9600
-ser.port     = 'com3' # or '/dev/ttyACM0'
+ser.port     = 'com3'  # or '/dev/ttyACM0'
 ser.bytesize = EIGHTBITS
 ser.parity   = PARITY_NONE
 ser.timeout  = 1
@@ -25,17 +23,19 @@ mylogger_params = {
     'address': '01',
     'passwd': 'your_password',
     'ser': ser,
-    'cnames': ['name',
-        'timedate', 
+    'cnames': [
+        'name',
+        'timedate',
         'airtemp2m',
         'relhum',
         'winvel',
         'gusts',
         'soiltemp',
-        'precip']
+        'precip',
+    ],
 }
 
-## Examples
+# Examples
 # open port and set everything up for communication
 ser.open()
 print('Port open: ', ser.is_open)
@@ -43,10 +43,10 @@ print('Port open: ', ser.is_open)
 # Define logger
 mylogger = combilog(mylogger_params)
 
-# authenticate when necessary 
+# authenticate when necessary
 mylogger.auth()
 
-# Set pointer to start of logger storage 
+# Set pointer to start of logger storage
 mylogger.pointer1_tostart()
 
 # get nr of logs
@@ -56,9 +56,9 @@ print(mylogger.nr_logs())
 logs = mylogger.read_bookings_pt1()
 
 # Write logs to CSV
-logs.to_csv('mylogger_data.csv', index = False)
+logs.to_csv('mylogger_data.csv', index=False)
 
-#read logger time
+# read logger time
 print(mylogger.read_datetime())
 
 # delete data storage on logger

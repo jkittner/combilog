@@ -1,11 +1,12 @@
 # classes for combilog_read_data.py
 # Github: theendlessriver13/combilog1022
 # Jonas Kittner 2020
+from datetime import datetime
+from struct import unpack
 
+import pandas as pd
 import serial
-import pandas   as pd
-from   datetime import datetime
-from   struct   import unpack
+
 
 class telegram:
 
@@ -24,7 +25,7 @@ class telegram:
     @classmethod
     def checkRe(cls, answer: bytes) -> None:
         '''Check answer of calls that return only NAK or ACK'''
-        if   (answer == b'\x15'):
+        if (answer == b'\x15'):
             raise Exception('NAK - call not successful')
         elif (answer == b'\x06'):
             print('ACK - call successful')
@@ -76,7 +77,7 @@ class combilog:
         returns a pandas dataframe with all data
         '''
         i    = 0
-        df   = pd.DataFrame(columns = self.cnames)
+        df   = pd.DataFrame(columns=self.cnames)
         logs = int(telegram.createTG(self.ser, self.address, 'N')[1:])
         while i < logs:
             row      = telegram.createTG(self.ser, self.address, arg)[1:]
@@ -94,7 +95,7 @@ class combilog:
 
             tmpList.insert(0, str(date))
             tmpList.insert(0, int(name))
-            dftmp = pd.DataFrame([tmpList], columns = self.cnames)
+            dftmp = pd.DataFrame([tmpList], columns=self.cnames)
             df    = df.append(dftmp)
             i     += 1
             print(f'reading log: {i} of {logs}')
@@ -145,7 +146,8 @@ class combilog:
     def read_channel(self, channelNr: str) -> float:
         '''
         reads a specific channel on the logger
-        channelNr must be type str and must have the format '01'-'20' or '80'-'BB'
+        channelNr must be type str and must have
+        the format '01'-'20' or '80'-'BB'
         '''
         tg = telegram.createTG(self.ser, self.address, 'R', channelNr)
         tg = float(tg.decode('ascii')[1:])
@@ -163,8 +165,8 @@ class combilog:
         newTime = time to set the logger clock to. Default is the system time
         else newTime must be a datetime object
         '''
-        newTime       = datetime.strftime(newTime, '%y%m%d%H%M%S')
-        tg            = telegram.createTG(self.ser, self.address, 'G', newTime)
+        newTime = datetime.strftime(newTime, '%y%m%d%H%M%S')
+        tg      = telegram.createTG(self.ser, self.address, 'G', newTime)
         telegram.checkRe(tg)
 
     def dev_id(self) -> dict:
@@ -175,7 +177,7 @@ class combilog:
             'vendor_name': tg[0:9],
             'model_name':  tg[10:17],
             'hw_revision': tg[18:23],
-            'sw_revision': tg[24:28]
+            'sw_revision': tg[24:28],
         }
         return device_id
 
@@ -187,7 +189,7 @@ class combilog:
         device_info = {
             'location':      tg[0:19].strip(),
             'serial_number': tg[20:26],
-            'nr_channels':   tg[26:28]
+            'nr_channels':   tg[26:28],
         }
         return device_info
 
@@ -198,13 +200,15 @@ class combilog:
         tg = tg.decode('ascii')[1:]
         device_status = {
             'channel_status': tg[0:8],
-            'module_status': tg[8:12]
+            'module_status': tg[8:12],
         }
         return device_status
 
     def channel_info(self, channelNr: str):
         '''returns all channel information'''
-        # FIXME: ° = 0xb0 raises: UnicodeDecodeError: 'ascii' codec can't decode byte 0xb0 in position 25: ordinal not in range(128)
+        # FIXME: ° = 0xb0 raises:
+        # UnicodeDecodeError: 'ascii' codec can't decode byte 0xb0
+        # in position 25: ordinal not in range(128)
         # TODO: Parse e.g. dataformat what means '3'
         tg = telegram.createTG(self.ser, self.address, 'B', channelNr)
         tg = tg.decode('ascii')[1:]
@@ -233,9 +237,9 @@ class combilog:
         if type_of_calculation == '0':
             type_of_calculation = 'normal calculation of average value'
         elif type_of_calculation == '1':
-            type_of_calculation = 'calculation of average value with wind direction'
+            type_of_calculation = 'calculation of average value with wind direction'  # noqa: E501
         elif type_of_calculation == '2':
-            type_of_calculation = 'calculation of the sum over the averaging interval'
+            type_of_calculation = 'calculation of the sum over the averaging interval'  # noqa: 501
         elif type_of_calculation == '3':
             type_of_calculation = 'continuous sum'
         elif type_of_calculation == '4':
@@ -253,7 +257,7 @@ class combilog:
             'decimals': tg[23],
             'unit': tg[24:29].strip(),
             'channel_configuration': tg[30],
-            'type_of_calculation': type_of_calculation
+            'type_of_calculation': type_of_calculation,
         }
         return channel_information
 
@@ -262,7 +266,7 @@ class combilog:
         tg = tg.decode('ascii')[1:]
         rates = {
             'measuring_rate':     tg[0:2],
-            'averaging_interval': tg[2:7]
+            'averaging_interval': tg[2:7],
         }
         return rates
 
