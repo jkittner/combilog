@@ -15,12 +15,12 @@ The file `combilog_FUN.py` includes all classes you will need to communicate wit
     from serial import PARITY_NONE
     from serial import Serial
 
-    ser          = Serial()
+    ser = Serial()
     ser.baudrate = 9600
-    ser.port     = 'com3'  # or '/dev/ttyACM0'
+    ser.port = 'com3'  # or '/dev/ttyACM0'
     ser.bytesize = EIGHTBITS
-    ser.parity   = PARITY_NONE
-    ser.timeout  = 1
+    ser.parity = PARITY_NONE
+    ser.timeout = 1
     ```
     - Specify the baudrate set in the logger's settings
     - Select the port where the logger is connected to
@@ -96,11 +96,11 @@ The file `combilog_FUN.py` includes all classes you will need to communicate wit
     ```
 
 ## Example
-The file `combilog_read_data.py` includes a basic example that should work for you after entering the correct settings as described [here](### Initial setup of your script)
+The file `combilog_read_data.py` includes a basic example that should work for you after entering the correct settings as described [here](# Initial setup of your script)
 The example will:
 - Authenticate using the specified password
 - Set the pointer to the start
-- Print out the number of logs tha are available
+- Print out the number of logs that are available
 - Read all bookings to a variable called `logs`
 - Export the readings to a csv-file named `mylogger_data.csv`
 - Print out the current logger dat and time

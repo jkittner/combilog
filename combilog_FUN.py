@@ -43,14 +43,14 @@ class combilog:
 
     def __init__(self, logger_params: dict) -> None:
         self.address = logger_params['address']
-        self.passwd  = logger_params['passwd']
-        self.ser     = logger_params['ser']
-        self.cnames  = logger_params['cnames']
+        self.passwd = logger_params['passwd']
+        self.ser = logger_params['ser']
+        self.cnames = logger_params['cnames']
 
     def auth(self) -> None:
         '''autheticate with password to set pointers or delete storage'''
-        tgStr    = '$' + self.address + 'P' + self.passwd + '\r'
-        tgByte   = tgStr.encode('utf-8')
+        tgStr = '$' + self.address + 'P' + self.passwd + '\r'
+        tgByte = tgStr.encode('utf-8')
         self.ser.write(tgByte)
         passwdRe = self.ser.read_until(b'\r')
         telegram.checkRe(passwdRe)
@@ -63,7 +63,7 @@ class combilog:
     def pointer1_to_date(self, date: datetime) -> None:
         '''sets pointer 1 to a specific date and time'''
         date = datetime.strftime(date, '%y%m%d%H%M%S')
-        tg   = telegram.createTG(self.ser, self.address, 'C', date)
+        tg = telegram.createTG(self.ser, self.address, 'C', date)
         telegram.checkRe(tg)
 
     def pointer1_to_pos(self, pos: str) -> None:
@@ -76,17 +76,17 @@ class combilog:
         reads all bookings for the currently set pointer 1
         returns a pandas dataframe with all data
         '''
-        i    = 0
-        df   = pd.DataFrame(columns=self.cnames)
+        i = 0
+        df = pd.DataFrame(columns=self.cnames)
         logs = int(telegram.createTG(self.ser, self.address, 'N')[1:])
         while i < logs:
-            row      = telegram.createTG(self.ser, self.address, arg)[1:]
-            row      = row.decode('ascii')
-            row      = row.split(';')
-            date     = row[0][1:]
-            date     = datetime.strptime(date, '%y%m%d%H%M%S')
+            row = telegram.createTG(self.ser, self.address, arg)[1:]
+            row = row.decode('ascii')
+            row = row.split(';')
+            date = row[0][1:]
+            date = datetime.strptime(date, '%y%m%d%H%M%S')
             datalist = row[1:-1]
-            name     = row[0][0]
+            name = row[0][0]
 
             tmpList = []
             for item in datalist:
@@ -96,8 +96,8 @@ class combilog:
             tmpList.insert(0, str(date))
             tmpList.insert(0, int(name))
             dftmp = pd.DataFrame([tmpList], columns=self.cnames)
-            df    = df.append(dftmp)
-            i     += 1
+            df = df.append(dftmp)
+            i += 1
             print(f'reading log: {i} of {logs}')
         return df
 
@@ -113,7 +113,7 @@ class combilog:
     def pointer2_to_date(self, date: datetime) -> None:
         '''sets pointer 2 to a specific date and time'''
         date = datetime.strftime(date, '%y%m%d%H%M%S')
-        tg   = telegram.createTG(self.ser, self.address, 'c', date)
+        tg = telegram.createTG(self.ser, self.address, 'c', date)
         telegram.checkRe(tg)
 
     def pointer2_to_pos(self, pos: str) -> None:
@@ -166,7 +166,7 @@ class combilog:
         else newTime must be a datetime object
         '''
         newTime = datetime.strftime(newTime, '%y%m%d%H%M%S')
-        tg      = telegram.createTG(self.ser, self.address, 'G', newTime)
+        tg = telegram.createTG(self.ser, self.address, 'G', newTime)
         telegram.checkRe(tg)
 
     def dev_id(self) -> dict:
@@ -250,7 +250,7 @@ class combilog:
             type_of_calculation = 'unknown type of calculation'
 
         channel_information = {
-            'channel_type':     channel_type,
+            'channel_type': channel_type,
             'channel_notation': tg[1:20].strip(),
             'data_format': tg[21],
             'field_length': tg[22],
@@ -265,7 +265,7 @@ class combilog:
         tg = telegram.createTG(self.ser, self.address, 'X')
         tg = tg.decode('ascii')[1:]
         rates = {
-            'measuring_rate':     tg[0:2],
+            'measuring_rate': tg[0:2],
             'averaging_interval': tg[2:7],
         }
         return rates

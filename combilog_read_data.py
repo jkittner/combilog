@@ -11,12 +11,12 @@ from serial import Serial
 from combilog_FUN import combilog
 
 # set up port and connection
-ser          = Serial()
+ser = Serial()
 ser.baudrate = 9600
-ser.port     = 'com3'  # or '/dev/ttyACM0'
+ser.port = 'com3'  # or '/dev/ttyACM0'
 ser.bytesize = EIGHTBITS
-ser.parity   = PARITY_NONE
-ser.timeout  = 1
+ser.parity = PARITY_NONE
+ser.timeout = 1
 
 # set up logger params
 mylogger_params = {
