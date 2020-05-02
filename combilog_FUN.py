@@ -204,7 +204,7 @@ class combilog:
         }
         return device_status
 
-    def channel_info(self, channelNr: str):
+    def channel_info(self, channelNr: str) -> dict:
         '''returns all channel information'''
         # FIXME: ° = 0xb0 raises:
         # UnicodeDecodeError: 'ascii' codec can't decode byte 0xb0
@@ -261,7 +261,7 @@ class combilog:
         }
         return channel_information
 
-    def get_rate(self) -> str:
+    def get_rate(self) -> dict:
         tg = telegram.createTG(self.ser, self.address, 'X')
         tg = tg.decode('ascii')[1:]
         rates = {
