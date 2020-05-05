@@ -81,7 +81,7 @@ class combilog:
         logs = int(telegram.createTG(self.ser, self.address, 'N')[1:])
         while i < logs:
             row = telegram.createTG(self.ser, self.address, arg)[1:]
-            row = row.decode('ascii')
+            row = row.decode('latin-1')
             row = row.split(';')
             date = row[0][1:]
             date = datetime.strptime(date, '%y%m%d%H%M%S')
@@ -150,13 +150,13 @@ class combilog:
         the format '01'-'20' or '80'-'BB'
         '''
         tg = telegram.createTG(self.ser, self.address, 'R', channelNr)
-        tg = float(tg.decode('ascii')[1:])
+        tg = float(tg.decode('latin-1')[1:])
         return tg
 
     def read_datetime(self) -> datetime:
         '''reads the current logger time'''
         tg = telegram.createTG(self.ser, self.address, 'H')
-        tg = tg.decode('ascii')[1:-1]
+        tg = tg.decode('latin-1')[1:-1]
         tg = datetime.strptime(tg, '%y%m%d%H%M%S')
         return tg
 
@@ -172,7 +172,7 @@ class combilog:
     def dev_id(self) -> dict:
         '''reads the device identification'''
         tg = telegram.createTG(self.ser, self.address, 'V')
-        tg = tg.decode('ascii')[1:]
+        tg = tg.decode('latin-1')[1:]
         device_id = {
             'vendor_name': tg[0:9],
             'model_name':  tg[10:17],
@@ -184,7 +184,7 @@ class combilog:
     def dev_info(self) -> dict:
         '''reads the device information'''
         tg = telegram.createTG(self.ser, self.address, 'S')
-        tg = tg.decode('ascii')[1:]
+        tg = tg.decode('latin-1')[1:]
         # remove trailing whitespace in location
         device_info = {
             'location':      tg[0:19].strip(),
@@ -197,7 +197,7 @@ class combilog:
         '''returns the channel and module status'''
         # TODO: parse the bits to define the error
         tg = telegram.createTG(self.ser, self.address, 'Z')
-        tg = tg.decode('ascii')[1:]
+        tg = tg.decode('latin-1')[1:]
         device_status = {
             'channel_status': tg[0:8],
             'module_status': tg[8:12],
@@ -206,12 +206,9 @@ class combilog:
 
     def channel_info(self, channelNr: str) -> dict:
         '''returns all channel information'''
-        # FIXME: ° = 0xb0 raises:
-        # UnicodeDecodeError: 'ascii' codec can't decode byte 0xb0
-        # in position 25: ordinal not in range(128)
         # TODO: Parse e.g. dataformat what means '3'
         tg = telegram.createTG(self.ser, self.address, 'B', channelNr)
-        tg = tg.decode('ascii')[1:]
+        tg = tg.decode('latin-1')[1:]
 
         # channel type
         channel_type = tg[0]
@@ -263,7 +260,7 @@ class combilog:
 
     def get_rate(self) -> dict:
         tg = telegram.createTG(self.ser, self.address, 'X')
-        tg = tg.decode('ascii')[1:]
+        tg = tg.decode('latin-1')[1:]
         rates = {
             'measuring_rate': tg[0:2],
             'averaging_interval': tg[2:7],
@@ -287,5 +284,5 @@ class combilog:
         for arg in argv:
             argStr += arg
         tg = telegram.createTG(self.ser, self.address, argStr)
-        tg = tg.decode('ascii')
+        tg = tg.decode('latin-1')
         return tg
