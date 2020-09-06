@@ -8,6 +8,9 @@ import pandas as pd
 import serial
 
 
+__version__ = '1.0.0'
+
+
 class telegram:
 
     @classmethod
