@@ -1,5 +1,7 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![pre-commit](https://github.com/theendlessriver13/combilog/workflows/pre-commit/badge.svg)](https://github.com/theendlessriver13/combilog/actions?query=workflow%3Apre-commit)
 [![test coverage](https://img.shields.io/badge/coverage-94%25-green)](#Tests)
+[![build](https://github.com/theendlessriver13/combilog/workflows/build/badge.svg)](https://github.com/theendlessriver13/combilog/actions?query=workflow%3Abuild)
 # combilog
 A tool to interact with the combilog datalogger by Theodor Friedrichs. Currently only the combilog 1022 is supported.
 ## Installation
