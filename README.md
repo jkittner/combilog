@@ -13,7 +13,7 @@ import combilog
 import csv
 
 # initialize a `combilog` object
-my_log = combilog.Combilog(logger_addr=1, port='com3')
+my_log = combilog.Combilog(logger_addr=1, port='com6')
 # authenticate if needed
 my_log.authenticate(passwd='12345678')
 # set pointer 1 to the start of the memory to read the logger
@@ -37,7 +37,7 @@ import combilog
 import pandas as pd
 
 # initialize a `combilog` object
-my_log = combilog.Combilog(logger_addr=1, port='com3')
+my_log = combilog.Combilog(logger_addr=1, port='com6')
 # authenticate if needed
 my_log.authenticate(passwd='12345678')
 # set pointer 1 to the start of the memory to read the logger
@@ -78,7 +78,7 @@ This software should do what the automatic part of the expensive Comgraph softwa
 
 
 ## Tests
-- Most of the tests unfortunatelly depend on a logger beeing connected to `com3`.
+- Most of the tests unfortunatelly depend on a logger beeing connected to `com6`.
 - The tests were ran using a `Combilog 1022` with `hw_version` = `V4.01` and `sw_revision` = `2.26`
 - The logger settings used for testing can be found in `testing/tetsing.PRO`
 - the requirements for testing in `requirements-dev.txt`

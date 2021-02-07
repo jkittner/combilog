@@ -214,7 +214,7 @@ class Combilog():
         channel_list = int_channel_list
         return channel_list
 
-    def read_channel(self, channel_nr: str):
+    def read_channel(self, channel_nr: str) -> str:
         with self.ser as ser:
             telegram = f'${self.logger_addr}R{channel_nr}\r'.encode('latin-1')
             ser.write(telegram)

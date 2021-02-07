@@ -1,0 +1,11 @@
+[run]
+omit=
+    .tox/*
+    tests/*
+
+[report]
+# non-runnable code
+exclude_lines = ^if __name__ == ['"]__main__['"]:$
+
+[html]
+directory = coverage-html
