@@ -8,7 +8,7 @@ def test_raises_value_error_invalid_baudrate():
     with pytest.raises(ValueError) as execinfo:
         Combilog(
             logger_addr=1,
-            port='com3',
+            port='com6',
             baudrate=invalid_baudrate,
         )
     # check error msg contains allowed values and given value
@@ -21,7 +21,7 @@ def test_raises_value_error_invalid_bytesize():
     with pytest.raises(ValueError) as execinfo:
         Combilog(
             logger_addr=1,
-            port='com3',
+            port='com6',
             bytesize=invalid_bytesize,
         )
     # check error msg contains allowed values and given value
@@ -30,11 +30,11 @@ def test_raises_value_error_invalid_bytesize():
 
 
 def test_raises_value_error_invalid_parity():
-    invalid_parity = 12345
+    invalid_parity = '12345'
     with pytest.raises(ValueError) as execinfo:
         Combilog(
             logger_addr=1,
-            port='com3',
+            port='com6',
             parity=invalid_parity,
         )
     # check error msg contains allowed values and given value
@@ -47,7 +47,7 @@ def test_raises_value_error_invalid_stopbits():
     with pytest.raises(ValueError) as execinfo:
         Combilog(
             logger_addr=1,
-            port='com3',
+            port='com6',
             stopbits=invalid_stopbits,
         )
     # check error msg contains allowed values and given value
@@ -60,8 +60,8 @@ def test_raises_type_error_invalid_timeout():
     with pytest.raises(TypeError) as execinfo:
         Combilog(
             logger_addr=1,
-            port='com3',
-            timeout=invalid_timeout,
+            port='com6',
+            timeout=invalid_timeout,  # type: ignore
         )
     # check error msg contains allowed values and given value
     assert 'float' in str(execinfo.value)
