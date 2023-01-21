@@ -1,6 +1,6 @@
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/theendlessriver13/combilog/master.svg)](https://results.pre-commit.ci/latest/github/theendlessriver13/combilog/master)
-[![codecov](https://codecov.io/gh/theendlessriver13/combilog/branch/master/graph/badge.svg)](https://codecov.io/gh/theendlessriver13/combilog)
-[![build](https://github.com/theendlessriver13/combilog/workflows/build/badge.svg)](https://github.com/theendlessriver13/combilog/actions?query=workflow%3Abuild)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/jkittner/combilog/master.svg)](https://results.pre-commit.ci/latest/github/jkittner/combilog/master)
+[![codecov](https://codecov.io/gh/jkittner/combilog/branch/master/graph/badge.svg)](https://codecov.io/gh/jkittner/combilog)
+[![build](https://github.com/jkittner/combilog/workflows/build/badge.svg)](https://github.com/jkittner/combilog/actions?query=workflow%3Abuild)
 # combilog
 A tool to interact with the combilog datalogger by Theodor Friedrichs. Currently only the combilog 1022 is supported.
 ## Installation
